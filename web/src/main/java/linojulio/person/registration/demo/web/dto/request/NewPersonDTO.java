@@ -38,7 +38,7 @@ class PhoneDTO {
     @NotEmpty @NotNull @Size(min = 8, max = 14) @Pattern(regexp = "[\\d]")
     private String number;
 
-    @NotEmpty @NotNull
+
     private PhoneType phoneType;
 }
 

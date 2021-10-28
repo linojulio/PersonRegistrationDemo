@@ -16,13 +16,13 @@ import javax.validation.Valid;
 public class PersonController {
 
     @Autowired
-    private final PersonInputService personInputService;
+    private PersonInputService personInputService;
 
     @PostMapping
     public void addPerson(
             @RequestBody @Valid NewPersonDTO newPerson
     ) {
-        System.out.println(newPerson);
+        personInputService.addPerson();
     }
 
     @GetMapping

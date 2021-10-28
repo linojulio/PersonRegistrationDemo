@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 public class PersonUsecase implements PersonInputService {
 
     @Autowired
-    private final PersonOutputService personOutputService;
+    private PersonOutputService personOutputService;
 
     @Override
     public RegisteredPersonResponseInput addPerson() {
+        personOutputService.savePerson();
         return null;
     }
 
