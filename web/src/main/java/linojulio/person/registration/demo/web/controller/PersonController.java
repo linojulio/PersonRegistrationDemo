@@ -2,12 +2,13 @@ package linojulio.person.registration.demo.web.controller;
 
 import linojulio.person.registration.demo.input.boundary.PersonInputService;
 import linojulio.person.registration.demo.web.dto.request.NewPersonDTO;
-import linojulio.person.registration.demo.web.dto.request.UpdatePersonDTO;
 import linojulio.person.registration.demo.web.dto.response.RegisteredPeopleDTO;
 import linojulio.person.registration.demo.web.mapper.MapToDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/person")
@@ -19,7 +20,7 @@ public class PersonController {
 
     @PostMapping
     public void addPerson(
-            @RequestBody NewPersonDTO newPerson
+            @RequestBody @Valid NewPersonDTO newPerson
     ) {
         System.out.println(newPerson);
     }
@@ -29,13 +30,6 @@ public class PersonController {
         return MapToDTO.toDTO(
                 personInputService.getRegisteredPeople()
         );
-    }
-
-    @PutMapping
-    public void updatePerson(
-            @RequestBody UpdatePersonDTO updatePerson
-            ) {
-        System.out.println(updatePerson);
     }
 
     @DeleteMapping("/{id}")
