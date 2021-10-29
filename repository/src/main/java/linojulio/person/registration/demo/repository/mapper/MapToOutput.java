@@ -16,9 +16,10 @@ public class MapToOutput {
     public static List<RegisteredPersonResponseOutput> toOutput(
             List<Person> people
     ) {
-        return people.stream().map(
-                MapToOutput::toOutput
-        )
+        return people.stream()
+                .map(
+                        MapToOutput::toOutput
+                )
                 .collect(
                         Collectors.toList()
                 );
@@ -29,9 +30,10 @@ public class MapToOutput {
     ) {
         return RegisteredPersonResponseOutput
                 .builder()
+                .id(person.getId())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
-                .cpf(person.getCpf())
+                .cpf(person.getDocument())
                 .birthDate(person.getBirthDate())
                 .phones(
                         person

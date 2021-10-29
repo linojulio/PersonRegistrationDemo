@@ -45,6 +45,8 @@ public class MapToInput {
 
     //todo
     /*
+            var datePattern = "dd-MM-yyyy";
+
     * .birthDate(
                         GenericValidator.isDate(
                                 personRequestOutput.getBirthDate(),

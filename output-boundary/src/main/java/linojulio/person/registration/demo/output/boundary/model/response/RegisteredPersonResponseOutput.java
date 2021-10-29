@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @Getter
 public class RegisteredPersonResponseOutput {
+    private Long id;
     private String firstName;
     private String lastName;
     private String cpf;

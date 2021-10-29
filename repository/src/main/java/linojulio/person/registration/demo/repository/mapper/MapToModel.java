@@ -16,12 +16,11 @@ public class MapToModel {
     public static Person toModel(
             PersonRequestOutput personRequestOutput
     ) {
-        var datePattern = "dd-MM-yyyy";
 
         return Person.builder()
                 .firstName(personRequestOutput.getFirstName())
                 .lastName(personRequestOutput.getLastName())
-                .cpf(personRequestOutput.getCpf())
+                .document(personRequestOutput.getCpf())
                 .birthDate(
                         personRequestOutput.getBirthDate()
                 )

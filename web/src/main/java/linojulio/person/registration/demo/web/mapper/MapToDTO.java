@@ -17,9 +17,10 @@ public class MapToDTO {
     public static List<RegisteredPersonDTO> toDTO(
             List<RegisteredPersonResponseInput> registeredPersonResponseInput
     ) {
-        return registeredPersonResponseInput.stream().map(
-                MapToDTO::toDTO
-        )
+        return registeredPersonResponseInput.stream()
+                .map(
+                        MapToDTO::toDTO
+                )
                 .collect(
                         Collectors.toList()
                 );
@@ -30,6 +31,7 @@ public class MapToDTO {
     ) {
         return RegisteredPersonDTO
                 .builder()
+                .id(registeredPersonResponseInput.getId())
                 .firstName(registeredPersonResponseInput.getFirstName())
                 .lastName(registeredPersonResponseInput.getLastName())
                 .cpf(registeredPersonResponseInput.getCpf())

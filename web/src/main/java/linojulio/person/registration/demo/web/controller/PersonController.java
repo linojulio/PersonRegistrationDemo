@@ -9,8 +9,10 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +27,7 @@ public class PersonController {
 
     @PostMapping
     public RegisteredPersonDTO addPerson(
-            @RequestBody NewPersonDTO newPerson
+            @RequestBody @Valid NewPersonDTO newPerson
     ) {
 
         logger.info("Add new Person V1...");
@@ -47,10 +49,23 @@ public class PersonController {
         );
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePerson(
-            @RequestParam(value = "id") String personId
+    @GetMapping("/{document}")
+    public RegisteredPersonDTO getPersonByDocument(
+            @PathVariable String document
     ) {
+        logger.info("Find registered  person by document...");
 
+        return MapToDTO.toDTO(
+                personInputService.getPersonByDocument(document)
+        );
+    }
+
+    @DeleteMapping("/{personId}")
+    public HttpStatus deletePerson(
+            @PathVariable Long personId
+    ) {
+        logger.info("Delete Person by ID ...");
+
+        return personInputService.deletePersonById(personId);
     }
 }

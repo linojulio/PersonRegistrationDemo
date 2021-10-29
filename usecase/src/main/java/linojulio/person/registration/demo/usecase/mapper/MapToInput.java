@@ -16,9 +16,10 @@ public class MapToInput {
     public static List<RegisteredPersonResponseInput> toInput(
             List<RegisteredPersonResponseOutput> registeredPeopleResponseOutput
     ) {
-        return registeredPeopleResponseOutput.stream().map(
-                MapToInput::toInput
-        )
+        return registeredPeopleResponseOutput.stream()
+                .map(
+                        MapToInput::toInput
+                )
                 .collect(
                         Collectors.toList()
                 );
@@ -29,6 +30,7 @@ public class MapToInput {
     ) {
         return RegisteredPersonResponseInput
                 .builder()
+                .id(registeredPersonResponseOutput.getId())
                 .firstName(registeredPersonResponseOutput.getFirstName())
                 .lastName(registeredPersonResponseOutput.getLastName())
                 .cpf(registeredPersonResponseOutput.getCpf())

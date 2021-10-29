@@ -19,7 +19,7 @@ public class PersonRepositoryTest {
                 Person.builder()
                         .firstName("Primeiro Nome")
                         .lastName("Ultimo Nome")
-                        .cpf("123123123")
+                        .document("123123123")
                         .birthDate(LocalDate.now().toString())
                         .phones(
                                 List.of(

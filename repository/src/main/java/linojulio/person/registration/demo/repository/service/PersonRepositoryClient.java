@@ -51,7 +51,22 @@ public class PersonRepositoryClient implements PersonOutputService {
     }
 
     @Override
-    public HttpStatus deletePerson() {
-        return null;
+    public RegisteredPersonResponseOutput getPersonByDocument(String document) {
+        return MapToOutput.toOutput(personRepository.findPersonByDocument(document));
+    }
+
+    @Override
+    public HttpStatus deletePersonById(Long personId) {
+        try {
+            personRepository.deleteById(personId);
+
+            logger.info("Person deleted successfully : id=" + personId);
+
+            return HttpStatus.ACCEPTED;
+        } catch (Exception ex) {
+            logger.info("Fail to delete person : id=" + personId + "\nmessage=" + ex.getMessage());
+
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,7 +27,7 @@ public class NewPersonDTO {
     @NotNull
     private String birthDate;
 
-    @NotEmpty @NotNull
+    @NotEmpty @NotNull @Valid
     private List<PhoneDTO> phones;
 }
 

@@ -9,5 +9,6 @@ import java.util.List;
 public interface PersonOutputService {
     public RegisteredPersonResponseOutput savePerson(PersonRequestOutput personRequestOutput);
     public List<RegisteredPersonResponseOutput> getAllRegisteredPeople();
-    public HttpStatus deletePerson();
+    public RegisteredPersonResponseOutput getPersonByDocument(String document);
+    public HttpStatus deletePersonById(Long personId);
 }
