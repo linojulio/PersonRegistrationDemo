@@ -1,15 +1,18 @@
 package linojulio.person.registration.demo.repository.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
 
     @Id

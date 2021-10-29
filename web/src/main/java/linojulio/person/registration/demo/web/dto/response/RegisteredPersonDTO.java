@@ -1,6 +1,5 @@
 package linojulio.person.registration.demo.web.dto.response;
 
-import linojulio.person.registration.demo.input.boundary.model.request.PhoneInput;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

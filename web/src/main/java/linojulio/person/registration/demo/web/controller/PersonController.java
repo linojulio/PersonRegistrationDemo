@@ -2,7 +2,6 @@ package linojulio.person.registration.demo.web.controller;
 
 import linojulio.person.registration.demo.input.boundary.PersonInputService;
 import linojulio.person.registration.demo.web.dto.request.NewPersonDTO;
-import linojulio.person.registration.demo.web.dto.response.RegisteredPeopleDTO;
 import linojulio.person.registration.demo.web.dto.response.RegisteredPersonDTO;
 import linojulio.person.registration.demo.web.mapper.MapToDTO;
 import linojulio.person.registration.demo.web.mapper.MapToInput;
@@ -12,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/person")
@@ -39,7 +38,10 @@ public class PersonController {
     }
 
     @GetMapping
-    public RegisteredPeopleDTO getRegisteredPeople() {
+    public List<RegisteredPersonDTO> getRegisteredPeople() {
+
+        logger.info("Find all registered people...");
+
         return MapToDTO.toDTO(
                 personInputService.getRegisteredPeople()
         );

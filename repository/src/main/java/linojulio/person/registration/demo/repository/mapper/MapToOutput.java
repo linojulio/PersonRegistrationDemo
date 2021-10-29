@@ -1,10 +1,11 @@
 package linojulio.person.registration.demo.repository.mapper;
 
-import linojulio.person.registration.demo.output.boundary.model.request.PersonRequestOutput;
-import linojulio.person.registration.demo.output.boundary.model.request.PhoneOutput;
 import linojulio.person.registration.demo.output.boundary.model.response.PhoneResponseOutput;
 import linojulio.person.registration.demo.output.boundary.model.response.RegisteredPersonResponseOutput;
+import linojulio.person.registration.demo.repository.entity.Person;
+import linojulio.person.registration.demo.repository.entity.Phone;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MapToOutput {
@@ -12,17 +13,28 @@ public class MapToOutput {
         super();
     }
 
+    public static List<RegisteredPersonResponseOutput> toOutput(
+            List<Person> people
+    ) {
+        return people.stream().map(
+                MapToOutput::toOutput
+        )
+                .collect(
+                        Collectors.toList()
+                );
+    }
+
     public static RegisteredPersonResponseOutput toOutput(
-            PersonRequestOutput personRequestOutput
+            Person person
     ) {
         return RegisteredPersonResponseOutput
                 .builder()
-                .firstName(personRequestOutput.getFirstName())
-                .lastName(personRequestOutput.getLastName())
-                .cpf(personRequestOutput.getCpf())
-                .birthDate(personRequestOutput.getBirthDate())
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .cpf(person.getCpf())
+                .birthDate(person.getBirthDate())
                 .phones(
-                        personRequestOutput
+                        person
                                 .getPhones()
                                 .stream()
                                 .map(
@@ -35,11 +47,11 @@ public class MapToOutput {
                 .build();
     }
 
-    private static PhoneResponseOutput toOutput(PhoneOutput phoneResponseOutput) {
+    private static PhoneResponseOutput toOutput(Phone phone) {
         return PhoneResponseOutput
                 .builder()
-                .number(phoneResponseOutput.getNumber())
-                .phoneType(phoneResponseOutput.getPhoneType())
+                .number(phone.getPhoneNumber())
+                .phoneType(phone.getPhoneType())
                 .build();
     }
 }

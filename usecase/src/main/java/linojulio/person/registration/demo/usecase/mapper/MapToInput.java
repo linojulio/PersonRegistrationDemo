@@ -1,17 +1,27 @@
 package linojulio.person.registration.demo.usecase.mapper;
 
-import linojulio.person.registration.demo.input.boundary.model.request.PhoneInput;
 import linojulio.person.registration.demo.input.boundary.model.response.PhoneResponseInput;
 import linojulio.person.registration.demo.input.boundary.model.response.RegisteredPersonResponseInput;
-import linojulio.person.registration.demo.output.boundary.model.request.PhoneOutput;
 import linojulio.person.registration.demo.output.boundary.model.response.PhoneResponseOutput;
 import linojulio.person.registration.demo.output.boundary.model.response.RegisteredPersonResponseOutput;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MapToInput {
     private MapToInput() {
         super();
+    }
+
+    public static List<RegisteredPersonResponseInput> toInput(
+            List<RegisteredPersonResponseOutput> registeredPeopleResponseOutput
+    ) {
+        return registeredPeopleResponseOutput.stream().map(
+                MapToInput::toInput
+        )
+                .collect(
+                        Collectors.toList()
+                );
     }
 
     public static RegisteredPersonResponseInput toInput(

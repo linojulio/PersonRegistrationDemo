@@ -4,13 +4,8 @@ import linojulio.person.registration.demo.output.boundary.model.request.PersonRe
 import linojulio.person.registration.demo.output.boundary.model.request.PhoneOutput;
 import linojulio.person.registration.demo.repository.entity.Person;
 import linojulio.person.registration.demo.repository.entity.Phone;
-import org.apache.commons.validator.GenericValidator;
 
-import javax.swing.text.DateFormatter;
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class MapToModel {

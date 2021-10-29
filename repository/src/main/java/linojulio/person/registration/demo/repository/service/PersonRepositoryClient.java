@@ -2,7 +2,6 @@ package linojulio.person.registration.demo.repository.service;
 
 import linojulio.person.registration.demo.output.boundary.PersonOutputService;
 import linojulio.person.registration.demo.output.boundary.model.request.PersonRequestOutput;
-import linojulio.person.registration.demo.output.boundary.model.response.RegisteredPeopleResponseOutput;
 import linojulio.person.registration.demo.output.boundary.model.response.RegisteredPersonResponseOutput;
 import linojulio.person.registration.demo.repository.PersonRepository;
 import linojulio.person.registration.demo.repository.mapper.MapToModel;
@@ -13,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -28,21 +29,25 @@ public class PersonRepositoryClient implements PersonOutputService {
             PersonRequestOutput personRequestOutput
     ) {
         logger.info("Saving person...");
-        personRepository.save(
-                MapToModel.toModel(
-                        personRequestOutput
-                )
+
+        var savedPerson = MapToModel.toModel(
+                personRequestOutput
         );
+
+        personRepository.save(
+                savedPerson
+        );
+
         logger.info("Save successful!");
 
         return MapToOutput.toOutput(
-                personRequestOutput
+                savedPerson
         );
     }
 
     @Override
-    public RegisteredPeopleResponseOutput getAllRegisteredPeople() {
-        return null;
+    public List<RegisteredPersonResponseOutput> getAllRegisteredPeople() {
+        return MapToOutput.toOutput(personRepository.findAll());
     }
 
     @Override
