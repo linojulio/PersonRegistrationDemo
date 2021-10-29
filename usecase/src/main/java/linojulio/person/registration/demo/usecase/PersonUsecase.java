@@ -49,4 +49,13 @@ public class PersonUsecase implements PersonInputService {
     public HttpStatus deletePersonById(Long personId) {
         return personOutputService.deletePersonById(personId);
     }
+
+    @Override
+    public RegisteredPersonResponseInput updatePerson(PersonRequestInput personRequestInput) {
+        return MapToInput.toInput(
+                personOutputService.updatePersonByDocument(
+                        MapToOutput.toOutput(personRequestInput)
+                )
+        );
+    }
 }

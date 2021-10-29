@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    Person findPersonByDocument(String document);
+    Optional<Person> findPersonByDocument(String document);
 }

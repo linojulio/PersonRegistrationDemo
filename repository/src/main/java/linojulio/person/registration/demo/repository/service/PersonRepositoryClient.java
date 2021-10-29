@@ -1,9 +1,11 @@
 package linojulio.person.registration.demo.repository.service;
 
+import linojulio.person.registration.demo.commons.exceptions.PersonNotFoundException;
 import linojulio.person.registration.demo.output.boundary.PersonOutputService;
 import linojulio.person.registration.demo.output.boundary.model.request.PersonRequestOutput;
 import linojulio.person.registration.demo.output.boundary.model.response.RegisteredPersonResponseOutput;
 import linojulio.person.registration.demo.repository.PersonRepository;
+import linojulio.person.registration.demo.repository.entity.Person;
 import linojulio.person.registration.demo.repository.mapper.MapToModel;
 import linojulio.person.registration.demo.repository.mapper.MapToOutput;
 import lombok.AllArgsConstructor;
@@ -52,7 +54,9 @@ public class PersonRepositoryClient implements PersonOutputService {
 
     @Override
     public RegisteredPersonResponseOutput getPersonByDocument(String document) {
-        return MapToOutput.toOutput(personRepository.findPersonByDocument(document));
+        return MapToOutput.toOutput(
+                validatePersonExistence(document)
+        );
     }
 
     @Override
@@ -64,9 +68,44 @@ public class PersonRepositoryClient implements PersonOutputService {
 
             return HttpStatus.ACCEPTED;
         } catch (Exception ex) {
-            logger.info("Fail to delete person : id=" + personId + "\nmessage=" + ex.getMessage());
+            logger.error("Fail to delete person : id=" + personId + "\nmessage=" + ex.getMessage());
 
             return HttpStatus.BAD_REQUEST;
         }
+    }
+
+    @Override
+    public RegisteredPersonResponseOutput updatePersonByDocument(PersonRequestOutput personRequestOutput) {
+
+        try {
+            var personId = validatePersonExistence(personRequestOutput.getCpf()).getId();
+
+            var updatedPerson = MapToModel.toModel(personRequestOutput);
+            updatedPerson.setId(personId);
+
+            return MapToOutput.toOutput(
+                    personRepository.save(
+                            updatedPerson
+                    )
+            );
+        } catch (Exception ex) {
+            logger.error("Fail to update person : person=" + personRequestOutput + "\nmessage=" + ex.getMessage());
+        }
+
+        return RegisteredPersonResponseOutput.builder().build();
+    }
+
+    private Person validatePersonExistence(String document) {
+        return personRepository.findPersonByDocument(document)
+                .orElseThrow(
+                        () -> new PersonNotFoundException(document)
+                );
+    }
+
+    private Person validatePersonExistence(Long id) {
+        return personRepository.findById(id)
+                .orElseThrow(
+                        () -> new PersonNotFoundException(id)
+                );
     }
 }

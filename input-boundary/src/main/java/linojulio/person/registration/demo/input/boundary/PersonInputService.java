@@ -11,4 +11,5 @@ public interface PersonInputService {
     public List<RegisteredPersonResponseInput> getRegisteredPeople();
     public RegisteredPersonResponseInput getPersonByDocument(String document);
     public HttpStatus deletePersonById(Long personId);
+    public RegisteredPersonResponseInput updatePerson(PersonRequestInput personRequestInput);
 }

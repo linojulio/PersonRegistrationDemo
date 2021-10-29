@@ -6,6 +6,7 @@ import linojulio.person.registration.demo.web.dto.response.RegisteredPersonDTO;
 import linojulio.person.registration.demo.web.mapper.MapToDTO;
 import linojulio.person.registration.demo.web.mapper.MapToInput;
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,18 @@ public class PersonController {
         logger.info("Delete Person by ID ...");
 
         return personInputService.deletePersonById(personId);
+    }
+
+    @PutMapping()
+    public RegisteredPersonDTO updatePerson(
+            @RequestBody NewPersonDTO newPersonDTO
+    ) {
+        logger.info("Updating person by document ...");
+
+        return MapToDTO.toDTO(
+                personInputService.updatePerson(
+                        MapToInput.toInput(newPersonDTO)
+                )
+        );
     }
 }

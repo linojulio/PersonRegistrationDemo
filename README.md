@@ -6,4 +6,4 @@ RESTful API with Springboot and Clean Architecture Demo: PersonRegistrationDemo
 - Unit Testing
 - Error handling
 - Web security
-- Some more validations (example: LocalDate)
+- Some more validations on the WEB layer (example: LocalDate)
