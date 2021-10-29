@@ -3,12 +3,13 @@ package linojulio.person.registration.demo.web.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.lang.Nullable;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -24,29 +25,10 @@ public class NewPersonDTO {
     @NotEmpty @NotNull @CPF
     private String cpf;
 
-    @Nullable
+    @NotNull
     private String birthDate;
 
-    @NotEmpty @NotNull @Valid
+    @NotEmpty @NotNull
     private List<PhoneDTO> phones;
 }
 
-@Data
-@AllArgsConstructor
-@Builder
-class PhoneDTO {
-    @NotEmpty @NotNull @Size(min = 8, max = 14) @Pattern(regexp = "[\\d]")
-    private String number;
-
-
-    private PhoneType phoneType;
-}
-
-@AllArgsConstructor
-enum PhoneType {
-    MOBILE("Mobile"),
-    HOME("Home"),
-    COMMERCIAL("Commercial");
-
-    private final String description;
-}

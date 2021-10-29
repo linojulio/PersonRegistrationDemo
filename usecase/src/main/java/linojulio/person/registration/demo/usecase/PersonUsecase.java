@@ -1,9 +1,12 @@
 package linojulio.person.registration.demo.usecase;
 
 import linojulio.person.registration.demo.input.boundary.PersonInputService;
-import linojulio.person.registration.demo.input.boundary.model.RegisteredPeopleResponseInput;
-import linojulio.person.registration.demo.input.boundary.model.RegisteredPersonResponseInput;
+import linojulio.person.registration.demo.input.boundary.model.request.PersonRequestInput;
+import linojulio.person.registration.demo.input.boundary.model.response.RegisteredPeopleResponseInput;
+import linojulio.person.registration.demo.input.boundary.model.response.RegisteredPersonResponseInput;
 import linojulio.person.registration.demo.output.boundary.PersonOutputService;
+import linojulio.person.registration.demo.usecase.mapper.MapToInput;
+import linojulio.person.registration.demo.usecase.mapper.MapToOutput;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +20,14 @@ public class PersonUsecase implements PersonInputService {
     private PersonOutputService personOutputService;
 
     @Override
-    public RegisteredPersonResponseInput addPerson() {
-        personOutputService.savePerson();
-        return null;
+    public RegisteredPersonResponseInput addPerson(
+            PersonRequestInput personRequestInput
+    ) {
+        return MapToInput.toInput(
+                personOutputService.savePerson(
+                        MapToOutput.toOutput(personRequestInput)
+                )
+        );
     }
 
     @Override

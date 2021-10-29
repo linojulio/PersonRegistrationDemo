@@ -1,6 +1,7 @@
 package linojulio.person.registration.demo.repository.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class Person {
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    private LocalDate birthDate;
+    private String birthDate = ""; // default is blank
 
     @Column(nullable = false)
     @OneToMany(
